@@ -1,12 +1,12 @@
 body {
+    background-color: antiquewhite;
+   
+}
+canvas {
     background-image: url("images/ocean.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 
-    /* height: 70%;
-    width: 100%; */
-    
-}
-canvas {
-    background-color: antiquewhite;
+    display: block;
+    margin: 0 auto;
 }
