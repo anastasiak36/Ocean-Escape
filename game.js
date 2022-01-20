@@ -38,6 +38,7 @@ function drawLives() {
 
 function drawWinner() {
     drawTime();
+    drawLives();
     ctx.font = "bold 40px Arial";
     ctx.fillStyle = "#ae00ff";
     ctx.fillText("You WON! CONGRATS:) ", c.width / 2 - 210, c.height / 2 + 10);
