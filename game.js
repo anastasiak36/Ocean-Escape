@@ -2,7 +2,7 @@ var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 var x = 10;
 var y = 450;
-var img = document.getElementById("fish");
+var fish = document.getElementById("fish");
 var mouth = true;
 var spacePressed = false;
 var startTime = new Date();
@@ -10,15 +10,15 @@ var elapsed;
 var lives = 3;
 var counter = 0;
 
-// document.body.onkeyup = function (e) {
-//     if (e.keyCode == 32) {
-//         spacePressed = true;
-//     }
-// }
+document.body.onkeyup = function (e) {
+    if (e.keyCode == 32) {
+        spacePressed = true;
+    }
+}
 function drawPlayer() {
-    ctx.drawImage(img, x, y, 100, 50);
-    img.height = "100px";
-    img.width = "150px";
+    ctx.drawImage(fish, x, y, 100, 50);
+    fish.height = "100px";
+    fish.width = "150px";
 }
 window.onload = function() {
     drawPlayer();
@@ -51,17 +51,15 @@ function move() {
 setInterval(move, 10000);
 
 function draw() {
-    // //sort of works but is glitchy
-    // if (spacePressed) {
-    //     if (mouth) {
-    //         img.src = "images/fish_mouth_closed.png";
-    //         mouth = false;
-    //     }
-    //     else {
-    //         img.src = "images/fish_mouth_open.png";
-    //         mouth = true;
-    //     }
-    // }
+    //sort of works but is glitchy
+    if (spacePressed) {
+        if (fish.src.normalize() === "images/fish_mouth_closed.png".normalize()) {
+            fish.src = "images/fish_mouth_open.png";
+        }
+        else {
+            fish.src = "images/fish_mouth_closed.png";
+        }
+    }
     ctx.clearRect(0, 0, c.width, c.height);
     drawPlayer();
     if (counter != 9) {
