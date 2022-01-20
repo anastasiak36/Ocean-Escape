@@ -5,6 +5,10 @@ var y = 450;
 var img = document.getElementById("fish");
 var mouth = true;
 var spacePressed = false;
+var startTime = new Date();
+var elapsed;
+var lives = 3;
+var counter = 0;
 
 // document.body.onkeyup = function (e) {
 //     if (e.keyCode == 32) {
@@ -19,8 +23,29 @@ function drawPlayer() {
 window.onload = function() {
     drawPlayer();
 }
+
+function drawTime() {
+    elapsed = parseInt((new Date() - startTime) / 1000);
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "#5500ff";
+    ctx.fillText("Time: " + elapsed, c.width - 100, 20);
+}
+function drawLives() {
+    ctx.font = "bold 20px Arial";
+    ctx.fillStyle = "#5500ff";
+    ctx.fillText("Lives: " + lives, c.width - 100, 50);
+}
+
+function drawWinner() {
+    drawTime();
+    ctx.font = "bold 40px Arial";
+    ctx.fillStyle = "#ae00ff";
+    ctx.fillText("You WON! CONGRATS:) ", c.width / 2 - 210, c.height / 2 + 10);
+}
+
 function move() {
     y -= 50;
+    counter++;
 }
 setInterval(move, 10000);
 
@@ -38,6 +63,14 @@ function draw() {
     // }
     ctx.clearRect(0, 0, c.width, c.height);
     drawPlayer();
-    requestAnimationFrame(draw);
+    if (counter != 1) {
+        drawLives();
+        drawTime();
+        requestAnimationFrame(draw);
+    }
+    else {
+        drawWinner();
+    }
+    
  }
  draw();
