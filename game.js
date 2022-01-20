@@ -63,7 +63,7 @@ function draw() {
     // }
     ctx.clearRect(0, 0, c.width, c.height);
     drawPlayer();
-    if (counter != 1) {
+    if (counter != 9) {
         drawLives();
         drawTime();
         requestAnimationFrame(draw);
