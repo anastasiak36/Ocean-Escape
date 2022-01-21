@@ -53,11 +53,14 @@ setInterval(move, 10000);
 function draw() {
     //sort of works but is glitchy
     if (spacePressed) {
-        if (fish.src.normalize() === "images/fish_mouth_closed.png".normalize()) {
+        //alert(fish.src);
+        if (fish.src == "file:///C:/Users/akeln/OneDrive/Documents/School_Anastasia/Sophmore/AP%20Comp%20Sci/Ocean-Escape/images/fish_mouth_closed.png") {
             fish.src = "images/fish_mouth_open.png";
+            spacePressed = false;
         }
         else {
             fish.src = "images/fish_mouth_closed.png";
+            spacePressed = false;
         }
     }
     ctx.clearRect(0, 0, c.width, c.height);
