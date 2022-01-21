@@ -67,13 +67,14 @@ function draw() {
     }
     ctx.clearRect(0, 0, c.width, c.height);
     drawPlayer();
-    if (counter != 9) {
+    if (counter < 9) {
         drawLives();
         drawTime();
         requestAnimationFrame(draw);
     }
     else {
         drawWinner();
+        setTimeout()
     }
     
  }
