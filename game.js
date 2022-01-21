@@ -53,8 +53,10 @@ setInterval(move, 10000);
 function draw() {
     //sort of works but is glitchy
     if (spacePressed) {
-        //alert(fish.src);
-        if (fish.src == "file:///C:/Users/akeln/OneDrive/Documents/School_Anastasia/Sophmore/AP%20Comp%20Sci/Ocean-Escape/images/fish_mouth_closed.png") {
+        var path = window.location.pathname;
+        var dir = path.substring(0, path.lastIndexOf('/'));
+        //alert("file://" + dir + "/images/fish_mouth_closed.png");
+        if (fish.src == ("file://" + dir + "/images/fish_mouth_closed.png")) {
             fish.src = "images/fish_mouth_open.png";
             spacePressed = false;
         }
