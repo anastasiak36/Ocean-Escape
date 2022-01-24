@@ -10,15 +10,30 @@ var elapsed;
 var lives = 3;
 var counter = 0;
 var energy = 0;
-var defaultPlankx = c.width + 10;
-var defaultPlanky = c.height + 10;
+var defaultPlankx = c.width / 2;
+var defaultPlanky = c.height / 2;
 var plankCoord = [];
+var lastPlank = 0;
 
+function createPlankton() {
+    if (elapsed % 5 == 0) {
+        for (var i = lastPlank; i < lastPlank + 3; i++) {
+            plankCoord[i] = {x: c.width - 20, y: Math.floor(Math.random() * c.height - 100) + 90};
+            if (lastPlank <= plankCoord.length - 3){
+                lastPlank++;
+            }
+            else {
+                lastPlank = 0;
+            }
+        }
+    }
+    
+}
 for (var i = 0; i < 30; i++) {
-    var plantonImg = document.createElement("img");
-    plantonImg.src = "images/yellow_plankton.png";
-    document.getElementById('body').appendChild(plantonImg);
-    plankCoord[i] = {x: defaultPlankx, y: defaultPlanky, img: plantonImg};
+    var imgTag = new Image();
+    imgTag.onload = drawPlankton;
+    imgTag.src = "images/yellow_plankton.png";   // load image
+    plankCoord[i] = {x: c.width + 10, y: c.height + 10, img: imgTag};
 }
 
 document.body.onkeyup = function (e) {
@@ -33,16 +48,13 @@ function drawPlayer() {
 }
 
 function drawPlankton() {
-    for (var i = 0; i < 1; i++) {
-        plankCoord[i].x = c.width - 5;
-        plankCoord[i].y = Math.floor(Math.random() * c.height - 100) + 90;
-        ctx.drawImage(plankCoord[i].img, plankCoord[i].x, plankCoord[i].y, 30, 20);
-    }
+    ctx.drawImage(plankCoord[i].img, plankCoord[i].x, plankCoord[i].y, 50, 30);
 }
+
 
 window.onload = function() {
     drawPlayer();
-    drawPlankton();
+    //drawPlankton();
 }
 
 function drawTime() {
@@ -95,7 +107,10 @@ function draw() {
     ctx.clearRect(0, 0, c.width, c.height);
     drawPlayer();
     if (counter < 9) {
-        drawPlankton();
+        createPlankton();
+        for (var i = 0; i < 30; i++) {
+            drawPlankton();
+        }
         drawLives();
         drawTime();
         drawEnergy();
