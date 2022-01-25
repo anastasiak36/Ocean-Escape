@@ -17,24 +17,27 @@ var lastPlank = 0;
 
 function createPlankton() {
     if (elapsed % 5 == 0) {
+        var imgTag = new Image();
+        // imgTag.onload = drawPlankton;
+        imgTag.src = "images/yellow_plankton.png";
         for (var i = lastPlank; i < lastPlank + 3; i++) {
-            plankCoord[i] = {x: c.width - 20, y: Math.floor(Math.random() * c.height - 100) + 90};
-            if (lastPlank <= plankCoord.length - 3){
+            plankCoord[i] = {x: c.width - 20, y: Math.floor(Math.random() * c.height - 100), img: imgTag};
+            if (lastPlank < plankCoord.length - 3){
+                drawPlankton(plankCoord[i]);
                 lastPlank++;
             }
             else {
                 lastPlank = 0;
             }
         }
+        
     }
     
 }
-for (var i = 0; i < 30; i++) {
-    var imgTag = new Image();
-    imgTag.onload = drawPlankton;
-    imgTag.src = "images/yellow_plankton.png";   // load image
-    plankCoord[i] = {x: c.width + 10, y: c.height + 10, img: imgTag};
-}
+// for (var i = 0; i < 30; i++) {
+//        // load image
+//     //plankCoord[i] = {x: c.width + 10, y: c.height + 10, img: imgTag};
+// }
 
 document.body.onkeyup = function (e) {
     if (e.keyCode == 32) {
@@ -47,8 +50,8 @@ function drawPlayer() {
     fish.width = "150px";
 }
 
-function drawPlankton() {
-    ctx.drawImage(plankCoord[i].img, plankCoord[i].x, plankCoord[i].y, 50, 30);
+function drawPlankton(element) {
+    ctx.drawImage(element.img, element.x, element.y, 50, 30);
 }
 
 
@@ -108,9 +111,7 @@ function draw() {
     drawPlayer();
     if (counter < 9) {
         createPlankton();
-        for (var i = 0; i < 30; i++) {
-            drawPlankton();
-        }
+        drawPlankton();
         drawLives();
         drawTime();
         drawEnergy();
