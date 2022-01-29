@@ -15,19 +15,27 @@ var defaultPlankx = c.width / 2;
 var defaultPlanky = c.height / 2;
 var plankCoord = [];
 var lastPlank = 0;
-//var z = 0
+var plankY = [450, 400, 350, 300,250,200,150];
 
 for (var z = 0; z < 30; z++) {
-    plankCoord[z] = {x: c.width + 50, y: Math.floor(Math.random() * c.height - 100)}
+    plankCoord[z] = {x: c.width + 50, y: plankY[Math.floor(Math.random() * 8)]};
 }
 
 function createPlankton() {
-    if (elapsed % 5 == 0) {
-        for (var i = 0; i < 3; i++){
-            plankCoord[i] = {x: c.width - 20, y: plankCoord[i].y};
-        }
+    for (var i = 0; i < 5; i++){
+        plankCoord[i] = {x: c.width - 20, y: plankCoord[i].y};
     }
-    
+}
+function movePlankton(){
+    var i = 0;
+    while (plankCoord[i].x != c.width + 50) {
+        plankCoord[i].x -= 7;
+        if (plankCoord[i].x <= 0){
+            plankCoord[i].x = c.width - 20;
+            plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
+        }
+        i++;
+    }
 }
 
 document.body.onkeyup = function (e) {
@@ -103,8 +111,10 @@ function draw() {
     }
     ctx.clearRect(0, 0, c.width, c.height);
     drawPlayer();
+    
     if (counter < 9) {
-        createPlankton();
+        //createPlankton();
+        movePlankton();
         drawPlankton();
         drawLives();
         drawTime();
@@ -118,3 +128,4 @@ function draw() {
     
  }
  draw();
+ createPlankton();
