@@ -1,25 +1,25 @@
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
+
 var x = 10;
 var y = 450;
 var fish = document.getElementById("fish");
+
 var plank = document.getElementById("plank");
+var plankCoord = [];
+var plankY = [450, 400, 350, 300,250,200,150];
+
 var shark = document.getElementById("shark");
-var mouth = true;
+var sharkY = [325, 275, 225, 175, 125, 75];
+var currentSharkY = sharkY[Math.floor(Math.random() * 6)];
+var currentSharkX = c.width - 20;
+
 var spacePressed = false;
 var startTime = new Date();
 var elapsed;
 var lives = 3;
 var counter = 0;
 var energy = 0;
-var defaultPlankx = c.width / 2;
-var defaultPlanky = c.height / 2;
-var plankCoord = [];
-var lastPlank = 0;
-var plankY = [450, 400, 350, 300,250,200,150];
-var sharkY = [325, 275, 225, 175, 125, 75];
-var currentSharkY = sharkY[Math.floor(Math.random() * 6)];
-var currentSharkX = c.width - 20;
 
 for (var z = 0; z < 30; z++) {
     plankCoord[z] = {x: c.width + 50, y: plankY[Math.floor(Math.random() * 8)]};
@@ -62,6 +62,9 @@ document.body.onkeyup = function (e) {
         spacePressed = true;
     }
 }
+function collisionDetection(){
+    
+}
 function drawPlayer() {
     ctx.drawImage(fish, x, y, 100, 45);
     fish.height = "100px";
@@ -70,7 +73,6 @@ function drawPlayer() {
 
 window.onload = function() {
     drawPlayer();
-    //drawPlankton();
 }
 
 function drawTime() {
@@ -106,11 +108,9 @@ function move() {
 setInterval(move, 10000);
 
 function draw() {
-    //sort of works but is glitchy
     if (spacePressed) {
         var path = window.location.pathname;
         var dir = path.substring(0, path.lastIndexOf('/'));
-        //alert("file://" + dir + "/images/fish_mouth_closed.png");
         if (fish.src == ("file://" + dir + "/images/fish_mouth_closed.png")) {
             fish.src = "images/fish_mouth_open.png";
             spacePressed = false;
@@ -121,9 +121,11 @@ function draw() {
         }
     }
     ctx.clearRect(0, 0, c.width, c.height);
-    drawPlayer();
-    
+    if (counter == 9){
+        drawPlayer();
+    }
     if (counter < 9) {
+        drawPlayer();
         moveShark();
         drawShark();
         movePlankton();
@@ -135,7 +137,6 @@ function draw() {
     }
     else {
         drawWinner();
-        //setTimeout()
     }
     
  }
