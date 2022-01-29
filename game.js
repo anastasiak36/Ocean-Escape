@@ -4,6 +4,7 @@ var x = 10;
 var y = 450;
 var fish = document.getElementById("fish");
 var plank = document.getElementById("plank");
+var shark = document.getElementById("shark");
 var mouth = true;
 var spacePressed = false;
 var startTime = new Date();
@@ -16,6 +17,9 @@ var defaultPlanky = c.height / 2;
 var plankCoord = [];
 var lastPlank = 0;
 var plankY = [450, 400, 350, 300,250,200,150];
+var sharkY = [325, 275, 225, 175, 125, 75];
+var currentSharkY = sharkY[Math.floor(Math.random() * 6)];
+var currentSharkX = c.width - 20;
 
 for (var z = 0; z < 30; z++) {
     plankCoord[z] = {x: c.width + 50, y: plankY[Math.floor(Math.random() * 8)]};
@@ -37,6 +41,21 @@ function movePlankton(){
         i++;
     }
 }
+function drawPlankton() {
+    for (var i = 0; i < plankCoord.length; i++) {
+        ctx.drawImage(plank, plankCoord[i].x, plankCoord[i].y, 50, 30);
+    }
+}
+function drawShark() {
+    ctx.drawImage(shark, currentSharkX, currentSharkY, 100, 85);
+}
+function moveShark() {
+    currentSharkX -= 3;
+    if (currentSharkX <= 0){
+        currentSharkX = c.width - 20;
+        currentSharkY = sharkY[Math.floor(Math.random() * 6)];
+    }
+}
 
 document.body.onkeyup = function (e) {
     if (e.keyCode == 32) {
@@ -44,18 +63,10 @@ document.body.onkeyup = function (e) {
     }
 }
 function drawPlayer() {
-    ctx.drawImage(fish, x, y, 100, 50);
+    ctx.drawImage(fish, x, y, 100, 45);
     fish.height = "100px";
     fish.width = "150px";
 }
-
-function drawPlankton() {
-    for (var i = 0; i < plankCoord.length; i++) {
-        ctx.drawImage(plank, plankCoord[i].x, plankCoord[i].y, 50, 30);
-    }
-    
-}
-
 
 window.onload = function() {
     drawPlayer();
@@ -113,7 +124,8 @@ function draw() {
     drawPlayer();
     
     if (counter < 9) {
-        //createPlankton();
+        moveShark();
+        drawShark();
         movePlankton();
         drawPlankton();
         drawLives();
