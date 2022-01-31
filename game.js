@@ -10,7 +10,7 @@ var plankCoord = [];
 var plankY = [450, 400, 350, 300,250,200,150];
 
 var shark = document.getElementById("shark");
-var sharkY = [325, 275, 225, 175, 125, 75];
+var sharkY = [320, 275, 225, 175, 125, 75];
 var currentSharkY = sharkY[Math.floor(Math.random() * 6)];
 var currentSharkX = c.width - 20;
 
@@ -35,19 +35,11 @@ function createPlankton() {
 function movePlankton(){
     var i = 0;
     while (plankCoord[i].x != c.width + 50) {
-        plankCoord[i].x -= 2;
         if (plankCoord[i].x <= 0){
             plankCoord[i].x = c.width - 20;
             plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
         }
-        else if (!(plankCoord[i].x > fish.x + fish.width || fish.x > plankCoord[i].x + plankCoord[i].width || plankCoord[i].y > fish.y + fish.height || plankCoord[i].y > fish.y + fish.height)) {
-            if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
-                energy++;
-                drawEnergy();
-            }
-            plankCoord[i].x = c.width - 20;  
-            plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
-        }
+        plankCoord[i].x -= 5;
         i++;
     }
 }
@@ -73,6 +65,43 @@ document.body.onkeyup = function (e) {
     }
 }
 function collisionDetection(){
+    var i = 0;
+    while (plankCoord[i].x != c.width + 50){
+        if (!(plankCoord[i].x > (x + fish.width) || x > (plankCoord[i].x + plankCoord[i].width) || plankCoord[i].y > (y + fish.height) || y > (plankCoord[i].y + plankCoord[i].height))) {
+            if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+                plankCoord[i].x = c.width - 20;  
+                plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
+                drawPlankton();
+                energy++;
+                drawEnergy();
+            }
+        }
+        if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
+            if (energy < 25) {
+                currentSharkX = c.width - 20;  
+                currentSharkY = sharkY[Math.floor(Math.random() * 6)];
+                drawShark();
+                if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+                    lives--;
+                    counter = 0;
+                    energy = 0;
+                    x = 10;
+                    y = 450;
+                }
+                else if (fish.src == ("file://" + dir + "/images/fish_mouth_closed.png")) {
+                    lives--;
+                    counter = 0;
+                    x = 10; 
+                    y = 450;
+                }
+            }
+            else {
+                energy = 0;
+            }
+            
+        }
+        i++;
+    }
     
 }
 function drawPlayer() {
@@ -110,6 +139,14 @@ function drawWinner() {
     ctx.fillStyle = "#ae00ff";
     ctx.fillText("You WON! CONGRATS:) ", c.width / 2 - 210, c.height / 2 + 10);
 }
+function drawLoser() {
+    drawTime();
+    drawLives();
+    drawEnergy();
+    ctx.font = "bold 40px Arial";
+    ctx.fillStyle = "#ae00ff";
+    ctx.fillText("GAME OVER :( Reload the page to try again", c.width / 2 , c.height / 2 + 10);
+}
 
 function move() {
     y -= 50;
@@ -132,7 +169,8 @@ function draw() {
     if (counter == 9){
         drawPlayer();
     }
-    if (counter < 9) {
+    if (counter < 9 && lives > 0) {
+        collisionDetection();
         drawPlayer();
         moveShark();
         drawShark();
@@ -142,6 +180,9 @@ function draw() {
         drawTime();
         drawEnergy();
         requestAnimationFrame(draw);
+    }
+    else if (lives <= 0) {
+        drawLoser();
     }
     else {
         drawWinner();
