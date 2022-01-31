@@ -20,6 +20,8 @@ var elapsed;
 var lives = 3;
 var counter = 0;
 var energy = 0;
+var path = window.location.pathname;
+var dir = path.substring(0, path.lastIndexOf('/'));
 
 for (var z = 0; z < 30; z++) {
     plankCoord[z] = {x: c.width + 50, y: plankY[Math.floor(Math.random() * 8)]};
@@ -33,9 +35,17 @@ function createPlankton() {
 function movePlankton(){
     var i = 0;
     while (plankCoord[i].x != c.width + 50) {
-        plankCoord[i].x -= 7;
+        plankCoord[i].x -= 2;
         if (plankCoord[i].x <= 0){
             plankCoord[i].x = c.width - 20;
+            plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
+        }
+        else if (!(plankCoord[i].x > fish.x + fish.width || fish.x > plankCoord[i].x + plankCoord[i].width || plankCoord[i].y > fish.y + fish.height || plankCoord[i].y > fish.y + fish.height)) {
+            if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+                energy++;
+                drawEnergy();
+            }
+            plankCoord[i].x = c.width - 20;  
             plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
         }
         i++;
@@ -109,8 +119,6 @@ setInterval(move, 10000);
 
 function draw() {
     if (spacePressed) {
-        var path = window.location.pathname;
-        var dir = path.substring(0, path.lastIndexOf('/'));
         if (fish.src == ("file://" + dir + "/images/fish_mouth_closed.png")) {
             fish.src = "images/fish_mouth_open.png";
             spacePressed = false;
