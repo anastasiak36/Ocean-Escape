@@ -80,7 +80,7 @@ function collisionDetection(){
             }
         }
         if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
-            if (energy < 25) {
+            if (energy < 30) {
                 currentSharkX = c.width - 20;  
                 currentSharkY = sharkY[Math.floor(Math.random() * 6)];
                 drawShark();
@@ -148,7 +148,7 @@ function drawLoser() {
     drawEnergy();
     ctx.font = "bold 40px Arial";
     ctx.fillStyle = "#ae00ff";
-    ctx.fillText("GAME OVER :( Reload the page to try again", c.width / 2 , c.height / 2 + 10);
+    ctx.fillText("GAME OVER :( Reload the page to try again!", (c.width / 2) - 450, c.height / 2 + 10);
 }
 
 function move() {
