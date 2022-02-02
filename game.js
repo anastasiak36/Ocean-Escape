@@ -69,11 +69,14 @@ function collisionDetection(){
     while (plankCoord[i].x != c.width + 50){
         if (!(plankCoord[i].x > (x + fish.width) || x > (plankCoord[i].x + plankCoord[i].width) || plankCoord[i].y > (y + fish.height) || y > (plankCoord[i].y + plankCoord[i].height))) {
             if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
-                plankCoord[i].x = c.width - 20;  
-                plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
-                drawPlankton();
-                energy++;
-                drawEnergy();
+                if (fish.x + (fish.width / 2) == plankCoord[i].x - (plankCoord[i].width / 2)) {
+                    plankCoord[i].x = c.width - 20;  
+                    plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
+                    drawPlankton();
+                    energy++;
+                    drawEnergy();
+                }
+                
             }
         }
         if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
@@ -85,19 +88,19 @@ function collisionDetection(){
                     lives--;
                     counter = 0;
                     energy = 0;
-                    x = 10;
-                    y = 450;
+                    // x = 10;
+                    // y = 450;
                 }
                 else if (fish.src == ("file://" + dir + "/images/fish_mouth_closed.png")) {
                     lives--;
                     counter = 0;
-                    x = 10; 
-                    y = 450;
+                    // x = 10; 
+                    // y = 450;
                 }
             }
-            else {
-                energy = 0;
-            }
+            // else {
+            //     energy = 0;
+            // }
             
         }
         i++;
@@ -184,7 +187,7 @@ function draw() {
     else if (lives <= 0) {
         drawLoser();
     }
-    else {
+    else if (lives > 0 && counter == 9) {
         drawWinner();
     }
     
