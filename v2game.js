@@ -5,10 +5,15 @@ var x = 10;
 var y = 440;
 var fish = document.getElementById("fish");
  
-var plank = document.getElementById("plank");
+var yellowPlank = document.getElementById("plank");
 var plankCoord = [];
-var plankY = [450, 400, 350, 300, 250, 200, 150];
-var plankX = [c.width + 100,c.width + 60, c.width + 20, c.width - 20, c.width - 60];
+var yellowPlankY = [450, 400, 350, 300, 250, 200, 150];
+var yellowPlankX = [c.width + 100, c.width + 60, c.width + 20, c.width - 20, c.width - 60, c.width - 100];
+
+var greenPlank = document.getElementById("green_plank");
+var greenPlankCoord = [];
+var greenPlankY = [450, 400, 350, 300, 250, 200, 150];
+var greenPlankX = [c.width + 80, c.width + 40, c.width, c.width - 40];
  
 var shark = document.getElementById("shark");
 var sharkY = [320, 275, 225, 175, 125, 75];
@@ -25,28 +30,38 @@ var path = window.location.pathname;
 var dir = path.substring(0, path.lastIndexOf('/'));
  
 for (var z = 0; z < 30; z++) {
-    plankCoord[z] = {x: c.width + 50, y: plankY[Math.floor(Math.random() * 8)]};
+    plankCoord[z] = {x: c.width + 50, y: yellowPlankY[Math.floor(Math.random() * 7)]};
+}
+for (var t = 0; t < 30; t++) {
+    greenPlankCoord[t] = {x: c.width + 50, y: greenPlankY[Math.floor(Math.random() * 7)]};
 }
  
 function createPlankton() {
-    for (var i = 0; i < 5; i++){
-        plankCoord[i] = {x: plankX[Math.floor(Math.random() * 6)], y: plankCoord[i].y};
+    for (var i = 0; i < 10; i++){
+        plankCoord[i] = {x: yellowPlankX[Math.floor(Math.random() * 6)], y: plankCoord[i].y};
+        greenPlankCoord[i] = {x: greenPlankX[Math.floor(Math.random() * 4)], y: plankCoord[j].y};
     }
 }
 function movePlankton(){
     var i = 0;
-    while (i < 5) {
+    while (i < 10) {
         if (plankCoord[i].x <= 0){
-            plankCoord[i].x = plankX[Math.floor(Math.random() * 6)];
-            plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
+            plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];
+            plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 6)];
+        }
+        if (greenPlankCoord[i].x <= 0){
+            greenPlankCoord[i].x = greenPlankX[Math.floor(Math.random() * 7)];
+            greenPlankCoord[i].y = greenPlankY[Math.floor(Math.random() * 4)];
         }
         plankCoord[i].x -= 5;
+        greenPlankCoord[i].x -= 4;
         i++;
     }
 }
 function drawPlankton() {
-    for (var i = 0; i < plankCoord.length; i++) {
+    for (var i = 0; i < 10; i++) {
         ctx.drawImage(plank, plankCoord[i].x, plankCoord[i].y, 50, 25);
+        ctx.drawImage(greenPlank, greenPlankCoord[i].x, greenPlankCoord[i].y, 50, 25);
     }
 }
 function drawShark() {
@@ -75,30 +90,44 @@ function collisionDetection(){
     var topFish;
     var bottomPlankton;
     var bottomFish;
-    while (i < 5){
+    while (i < 10){
         leftPlankton = plankCoord[i].x;
         leftFish = x;
         rightPlankton = plankCoord[i].x + 50;
-        rightFish = x + 100;
+        rightFish = x + 40;
         topPlankton = plankCoord[i].y;
         topFish = y;
         bottomPlankton = plankCoord[i].y + 25;
-        bottomFish = y + 45;
+        bottomFish = y + 25;
         //https://www.oreilly.com/library/view/html5-canvas-2nd/9781449335847/ch04s10.html
-        //if ()
-        // if ((plankCoord[i].x > (x + fish.width) || x > (plankCoord[i].x + plankCoord[i].width)) && (plankCoord[i].y > (y + fish.height) || y > (plankCoord[i].y + plankCoord[i].height))) {
-            if (x == plankCoord[i].x && y == plankCoord[i].y) {
-                if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
-                    plankCoord[i].x = plankX[Math.floor(Math.random() * 6)];  
-                    plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
-                    drawPlankton();
-                    energy++;
-                    drawEnergy();
-                }
+        if (!((bottomPlankton < topFish) || (topPlankton > bottomFish) || (rightPlankton < leftFish) || (leftPlankton > rightFish))) {
+            if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+                plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
+                plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 6)];
+                drawPlankton();
+                energy++;
+                drawEnergy();
+                
             }
-        //}
+        }
+        leftPlankton = greenPlankCoord[i].x;
+        rightPlankton = greenPlankCoord[i].x + 50;
+        topPlankton = greenPlankCoord[i].y;
+        bottomPlankton = greenPlankCoord[i].y + 25;
+        if (!((bottomPlankton < topFish) || (topPlankton > bottomFish) || (rightPlankton < leftFish) || (leftPlankton > rightFish))) {
+            if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+                greenPlankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
+                greenPlankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 4)];
+                drawPlankton();
+                energy--;
+                if (energy < 0){
+                    energy = 0;
+                }
+                drawEnergy();
+            }
+        }
         if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
-            if (energy < 30) {
+            if (energy < 10) {
                 currentSharkX = c.width - 20;  
                 currentSharkY = sharkY[Math.floor(Math.random() * 6)];
                 drawShark();
@@ -106,11 +135,18 @@ function collisionDetection(){
                     lives--;
                     counter = 0;
                     energy = 0;
+                    x = 10;
+                    y = 450;
                 }
                 else if (fish.src == ("file://" + dir + "/images/fish_mouth_closed.png")) {
                     lives--;
                     counter = 0;
+                    x = 10;
+                    y = 450;
                 }
+            }
+            else {
+                energy = 0;
             }
            
         }
