@@ -67,17 +67,36 @@ document.body.onkeyup = function (e) {
 }
 function collisionDetection(){
     var i = 0;
+    var leftPlankton;
+    var leftFish;
+    var rightPlankton;
+    var rightFish;
+    var topPlankton;
+    var topFish;
+    var bottomPlankton;
+    var bottomFish;
     while (i < 5){
-        //!(plankCoord[i].x > (x + fish.width) || x > (plankCoord[i].x + plankCoord[i].width) || plankCoord[i].y > (y + fish.height) || y > (plankCoord[i].y + plankCoord[i].height))
-        if (x == plankCoord[i].x && y == plankCoord[i].y) {
-            if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
-                plankCoord[i].x = plankX[Math.floor(Math.random() * 6)];  
-                plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
-                drawPlankton();
-                energy++;
-                drawEnergy();
+        leftPlankton = plankCoord[i].x;
+        leftFish = x;
+        rightPlankton = plankCoord[i].x + 50;
+        rightFish = x + 100;
+        topPlankton = plankCoord[i].y;
+        topFish = y;
+        bottomPlankton = plankCoord[i].y + 25;
+        bottomFish = y + 45;
+        //https://www.oreilly.com/library/view/html5-canvas-2nd/9781449335847/ch04s10.html
+        //if ()
+        // if ((plankCoord[i].x > (x + fish.width) || x > (plankCoord[i].x + plankCoord[i].width)) && (plankCoord[i].y > (y + fish.height) || y > (plankCoord[i].y + plankCoord[i].height))) {
+            if (x == plankCoord[i].x && y == plankCoord[i].y) {
+                if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+                    plankCoord[i].x = plankX[Math.floor(Math.random() * 6)];  
+                    plankCoord[i].y = plankY[Math.floor(Math.random() * 8)];
+                    drawPlankton();
+                    energy++;
+                    drawEnergy();
+                }
             }
-        }
+        //}
         if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
             if (energy < 30) {
                 currentSharkX = c.width - 20;  
