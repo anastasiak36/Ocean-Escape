@@ -32,7 +32,7 @@ var dir = path.substring(0, path.lastIndexOf('/'));
 for (var z = 0; z < 30; z++) {
     plankCoord[z] = {x: c.width + 50, y: yellowPlankY[Math.floor(Math.random() * 7)]};
 }
-for (var t = 0; t < 30; t++) {
+for (var t = 0; t < 50; t++) {
     greenPlankCoord[t] = {x: c.width + 50, y: greenPlankY[Math.floor(Math.random() * 7)]};
 }
  
@@ -103,7 +103,7 @@ function collisionDetection(){
         if (!((bottomPlankton < topFish) || (topPlankton > bottomFish) || (rightPlankton < leftFish) || (leftPlankton > rightFish))) {
             if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
                 plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
-                plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 6)];
+                plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 7)];
                 drawPlankton();
                 energy++;
                 drawEnergy();
