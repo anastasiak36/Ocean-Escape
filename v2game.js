@@ -39,29 +39,37 @@ for (var t = 0; t < 50; t++) {
 function createPlankton() {
     for (var i = 0; i < 10; i++){
         plankCoord[i] = {x: yellowPlankX[Math.floor(Math.random() * 6)], y: plankCoord[i].y};
-        greenPlankCoord[i] = {x: greenPlankX[Math.floor(Math.random() * 4)], y: plankCoord[j].y};
+    }
+    for (var j = 0; j < 15; j++) {
+        greenPlankCoord[j] = {x: greenPlankX[Math.floor(Math.random() * 4)], y: greenPlankCoord[j].y};
     }
 }
 function movePlankton(){
     var i = 0;
+    var j = 0;
     while (i < 10) {
-        if (plankCoord[i].x <= 0){
+        if (plankCoord[i].x <= 10){
             plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];
             plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 6)];
         }
-        if (greenPlankCoord[i].x <= 0){
-            greenPlankCoord[i].x = greenPlankX[Math.floor(Math.random() * 7)];
-            greenPlankCoord[i].y = greenPlankY[Math.floor(Math.random() * 4)];
-        }
         plankCoord[i].x -= 5;
-        greenPlankCoord[i].x -= 4;
         i++;
+    }
+    while (j < 15) {
+        if (greenPlankCoord[j].x <= 0){
+            greenPlankCoord[j].x = greenPlankX[Math.floor(Math.random() * 7)];
+            greenPlankCoord[j].y = greenPlankY[Math.floor(Math.random() * 4)];
+        }
+        greenPlankCoord[j].x -= 4;
+        j++;
     }
 }
 function drawPlankton() {
     for (var i = 0; i < 10; i++) {
         ctx.drawImage(plank, plankCoord[i].x, plankCoord[i].y, 50, 25);
-        ctx.drawImage(greenPlank, greenPlankCoord[i].x, greenPlankCoord[i].y, 50, 25);
+    }
+    for (var j = 0; j < 15; j++) {
+        ctx.drawImage(greenPlank, greenPlankCoord[j].x, greenPlankCoord[j].y, 50, 25);
     }
 }
 function drawShark() {
