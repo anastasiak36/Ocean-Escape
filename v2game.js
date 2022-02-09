@@ -215,7 +215,7 @@ setInterval(move, 10000);
 function draw() {
     if (spacePressed) {
         alert(fish.src);
-        if (fish.src == ("file://" + dir + "/images/fish_mouth_closed.png")) {
+        if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
             fish.src = "images/fish_mouth_open.png";
             spacePressed = false;
         }
