@@ -117,12 +117,13 @@ function collisionDetection(){
                 drawEnergy();
                 
             }
+            else {
+                plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
+                plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 7)];
+                drawPlankton();
+            }
         }
-        else {
-            plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
-            plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 7)];
-            drawPlankton();
-        }
+        
         leftPlankton = greenPlankCoord[i].x;
         rightPlankton = greenPlankCoord[i].x + 50;
         topPlankton = greenPlankCoord[i].y;
@@ -138,12 +139,13 @@ function collisionDetection(){
                 }
                 drawEnergy();
             }
+            else {
+                greenPlankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
+                greenPlankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 4)];
+                drawPlankton();
+            }
         }
-        else {
-            greenPlankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
-            greenPlankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 4)];
-            drawPlankton();
-        }
+        
         if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
             if (energy < 10) {
                 currentSharkX = c.width - 20;  
