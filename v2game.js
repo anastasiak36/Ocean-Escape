@@ -228,7 +228,6 @@ function draw() {
         drawPlayer();
     }
     if (counter < 9 && lives > 0) {
-        collisionDetection();
         drawPlankton();
         drawPlayer();
         drawShark();
@@ -237,6 +236,7 @@ function draw() {
         drawLives();
         drawTime();
         drawEnergy();
+        collisionDetection();
         requestAnimationFrame(draw);
     }
     else if (lives <= 0) {
