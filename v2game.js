@@ -123,7 +123,10 @@ function collisionDetection(){
                 drawPlankton();
             }
         }
-        
+        i++;
+    }
+    i = 0;
+    while (i < 15) {
         leftPlankton = greenPlankCoord[i].x;
         rightPlankton = greenPlankCoord[i].x + 50;
         topPlankton = greenPlankCoord[i].y;
@@ -144,34 +147,35 @@ function collisionDetection(){
             }
             drawPlankton();
         }
-        
-        if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
-            if (energy < 10) {
-                currentSharkX = c.width - 20;  
-                currentSharkY = sharkY[Math.floor(Math.random() * 6)];
-                drawShark();
-                if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
-                    lives--;
-                    counter = 0;
-                    energy = 0;
-                    x = 10;
-                    y = 450;
-                }
-                else if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
-                    lives--;
-                    counter = 0;
-                    x = 10;
-                    y = 450;
-                }
-            }
-            else {
-                energy = 0;
-            }
-           
-        }
         i++;
     }
-   
+        
+        
+    if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
+        if (energy < 10) {
+            currentSharkX = c.width - 20;  
+            currentSharkY = sharkY[Math.floor(Math.random() * 6)];
+            drawShark();
+            if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
+                lives--;
+                counter = 0;
+                energy = 0;
+                x = 10;
+                y = 450;
+            }
+            else if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
+                lives--;
+                counter = 0;
+                x = 10;
+                y = 450;
+            }
+            }
+        else {
+            energy = 0;
+        }
+        
+    }
+    
 }
 function drawPlayer() {
     ctx.drawImage(fish, x, y, 100, 45);
