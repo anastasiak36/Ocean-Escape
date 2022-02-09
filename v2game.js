@@ -225,16 +225,7 @@ function move() {
 setInterval(move, 10000);
  
 function draw() {
-    if (spacePressed) {
-        if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
-            fish.src = "images/fish_mouth_open.png";
-            spacePressed = false;
-        }
-        else {
-            fish.src = "images/fish_mouth_closed.png";
-            spacePressed = false;
-        }
-    }
+    
     ctx.clearRect(0, 0, c.width, c.height);
     if (counter == 9){
         drawPlayer();
@@ -256,6 +247,16 @@ function draw() {
     }
     else {
         drawWinner();
+    }
+    if (spacePressed) {
+        if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
+            fish.src = "images/fish_mouth_open.png";
+            spacePressed = false;
+        }
+        else {
+            fish.src = "images/fish_mouth_closed.png";
+            spacePressed = false;
+        }
     }
    
  }
