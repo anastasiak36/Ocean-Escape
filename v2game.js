@@ -109,7 +109,7 @@ function collisionDetection(){
         bottomFish = y + 25;
         //https://www.oreilly.com/library/view/html5-canvas-2nd/9781449335847/ch04s10.html
         if (!((bottomPlankton < topFish) || (topPlankton > bottomFish) || (rightPlankton < leftFish) || (leftPlankton > rightFish))) {
-            if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+            if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
                 plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
                 plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 7)];
                 drawPlankton();
@@ -123,7 +123,7 @@ function collisionDetection(){
         topPlankton = greenPlankCoord[i].y;
         bottomPlankton = greenPlankCoord[i].y + 25;
         if (!((bottomPlankton < topFish) || (topPlankton > bottomFish) || (rightPlankton < leftFish) || (leftPlankton > rightFish))) {
-            if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+            if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
                 greenPlankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
                 greenPlankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 4)];
                 drawPlankton();
@@ -139,14 +139,14 @@ function collisionDetection(){
                 currentSharkX = c.width - 20;  
                 currentSharkY = sharkY[Math.floor(Math.random() * 6)];
                 drawShark();
-                if (fish.src == ("file://" + dir + "/images/fish_mouth_open.png")) {
+                if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
                     lives--;
                     counter = 0;
                     energy = 0;
                     x = 10;
                     y = 450;
                 }
-                else if (fish.src == ("file://" + dir + "/images/fish_mouth_closed.png")) {
+                else if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
                     lives--;
                     counter = 0;
                     x = 10;
@@ -214,7 +214,6 @@ setInterval(move, 10000);
  
 function draw() {
     if (spacePressed) {
-        alert(fish.src);
         if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
             fish.src = "images/fish_mouth_open.png";
             spacePressed = false;
