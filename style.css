@@ -12,3 +12,8 @@ canvas {
     display: block;
     margin: 0 auto;
 }
+div {
+    margin-top: 15px;
+    margin-left: 18%;
+    margin-right: 10%;
+}
