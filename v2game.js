@@ -132,7 +132,6 @@ function collisionDetection(){
             if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
                 greenPlankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
                 greenPlankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 4)];
-                drawPlankton();
                 energy--;
                 if (energy < 0){
                     energy = 0;
@@ -142,8 +141,8 @@ function collisionDetection(){
             else {
                 greenPlankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
                 greenPlankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 4)];
-                drawPlankton();
             }
+            drawPlankton();
         }
         
         if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
