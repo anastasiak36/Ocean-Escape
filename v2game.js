@@ -80,8 +80,8 @@ function drawPlankton() {
 function drawShark() {
     for (var q = 0; q < 2; q++) {
         if (q == 0) {
-            while (sharkCoord[q].y >= sharkCoord[q+1].y + 5 && sharkCoord[q].y <= sharkCoord[q+1].y + 5) {
-                sharkCoord[q].y = sharkY1[Math.floor(Math.random() * 2)];
+            while (sharkCoord[q].y >= sharkCoord[q + 1].y - 50 && sharkCoord[q].y <= sharkCoord[q+1].y + 50) {
+                sharkCoord[q].y = sharkY[Math.floor(Math.random() * 6)];
             }
         }
         ctx.drawImage(shark, sharkCoord[q].x, sharkCoord[q].y, 100, 85);
@@ -93,7 +93,7 @@ function moveShark() {
         sharkCoord[q].x -= 3;
         if (sharkCoord[q].x <= 0){
             sharkCoord[q].x = c.width - 20;
-            sharkCoord[q].y = sharkY1[Math.floor(Math.random() * 2)];
+            sharkCoord[q].y = sharkY[Math.floor(Math.random() * 6)];
             
         }
     }
@@ -171,12 +171,7 @@ function collisionDetection(){
         if (!(sharkCoord[q].x > (x + fish.width) || x > (sharkCoord[q].x+ 20) || sharkCoord[q].y > (y + fish.height) || y > (sharkCoord[q].y + 50))) {
             if (energy < 10) {
                 sharkCoord[q].x = c.width - 20; 
-                if (q == 0){
-                    sharkCoord[q].y = sharkY1[Math.floor(Math.random() * 2)];
-                } 
-                else{
-                    sharkCoord[q].y = sharkY2[Math.floor(Math.random() * 3)];
-                }
+                sharkCoord[q].y = sharkY[Math.floor(Math.random() * 6)];
                 drawShark();
                 if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
                     lives--;
