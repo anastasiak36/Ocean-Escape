@@ -79,6 +79,11 @@ function drawPlankton() {
 }
 function drawShark() {
     for (var q = 0; q < 2; q++) {
+        if (q == 0) {
+            while (sharkCoord[q].y >= sharkCoord[q+1].y + 5 && sharkCoord[q].y <= sharkCoord[q+1].y + 5) {
+                sharkCoord[q].y = sharkY1[Math.floor(Math.random() * 2)];
+            }
+        }
         ctx.drawImage(shark, sharkCoord[q].x, sharkCoord[q].y, 100, 85);
     }
     
