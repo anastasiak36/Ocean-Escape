@@ -17,7 +17,7 @@ var greenPlankX = [c.width + 80, c.width + 40, c.width, c.width - 40];
  
 var shark = document.getElementById("shark");
 var sharkCoord = [];
-var sharkY = [325, 275, 225, 175, 125, 75];
+var sharkY = [325, 275, 225, 175, 125, 75, 25];
 // y >= y -50 && y <= y + 50
 // var currentSharkY = sharkY[Math.floor(Math.random() * 6)];
 // var currentSharkX = c.width - 20;
@@ -32,8 +32,8 @@ var path = window.location.pathname;
 var dir = path.substring(0, path.lastIndexOf('/'));
 
 
-sharkCoord[0] = {x: c.width - 20, y: sharkY[Math.floor(Math.random() * 6)]};
-sharkCoord[1] = {x: c.width - 20, y: sharkY[Math.floor(Math.random() * 6)]};
+sharkCoord[0] = {x: c.width - 20, y: sharkY[Math.floor(Math.random() * 7)]};
+sharkCoord[1] = {x: c.width - 20, y: sharkY[Math.floor(Math.random() * 7)]};
 for (var z = 0; z < 30; z++) {
     plankCoord[z] = {x: c.width + 50, y: yellowPlankY[Math.floor(Math.random() * 7)]};
 }
@@ -81,7 +81,7 @@ function drawShark() {
     for (var q = 0; q < 2; q++) {
         if (q == 0) {
             while (sharkCoord[q].y >= sharkCoord[q + 1].y - 50 && sharkCoord[q].y <= sharkCoord[q+1].y + 50) {
-                sharkCoord[q].y = sharkY[Math.floor(Math.random() * 6)];
+                sharkCoord[q].y = sharkY[Math.floor(Math.random() * 7)];
             }
         }
         ctx.drawImage(shark, sharkCoord[q].x, sharkCoord[q].y, 100, 85);
@@ -93,7 +93,7 @@ function moveShark() {
         sharkCoord[q].x -= 3;
         if (sharkCoord[q].x <= 0){
             sharkCoord[q].x = c.width - 20;
-            sharkCoord[q].y = sharkY[Math.floor(Math.random() * 6)];
+            sharkCoord[q].y = sharkY[Math.floor(Math.random() * 7)];
             
         }
     }
@@ -171,7 +171,7 @@ function collisionDetection(){
         if (!(sharkCoord[q].x > (x + fish.width) || x > (sharkCoord[q].x+ 20) || sharkCoord[q].y > (y + fish.height) || y > (sharkCoord[q].y + 50))) {
             if (energy < 10) {
                 sharkCoord[q].x = c.width - 20; 
-                sharkCoord[q].y = sharkY[Math.floor(Math.random() * 6)];
+                sharkCoord[q].y = sharkY[Math.floor(Math.random() * 7)];
                 drawShark();
                 if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
                     lives--;
