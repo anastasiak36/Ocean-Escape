@@ -7,18 +7,20 @@ var fish = document.getElementById("fish");
  
 var yellowPlank = document.getElementById("plank");
 var plankCoord = [];
-var yellowPlankY = [450, 400, 350, 300, 250, 200, 150];
+var yellowPlankY = [450, 400, 350, 300, 250, 200, 150, 100, 50];
 var yellowPlankX = [c.width + 100, c.width + 60, c.width + 20, c.width - 20, c.width - 60, c.width - 100];
 
 var greenPlank = document.getElementById("green_plank");
 var greenPlankCoord = [];
-var greenPlankY = [450, 400, 350, 300, 250, 200, 150];
+var greenPlankY = [450, 400, 350, 300, 250, 200, 150, 100, 50];
 var greenPlankX = [c.width + 80, c.width + 40, c.width, c.width - 40];
  
 var shark = document.getElementById("shark");
-var sharkY = [320, 275, 225, 175, 125, 75];
-var currentSharkY = sharkY[Math.floor(Math.random() * 6)];
-var currentSharkX = c.width - 20;
+var sharkCoord = [];
+var sharkY1 = [175, 75];
+var sharkY2 = [320,275, 225]
+// var currentSharkY = sharkY[Math.floor(Math.random() * 6)];
+// var currentSharkX = c.width - 20;
  
 var spacePressed = false;
 var startTime = new Date();
@@ -28,7 +30,10 @@ var counter = 0;
 var energy = 0;
 var path = window.location.pathname;
 var dir = path.substring(0, path.lastIndexOf('/'));
- 
+
+
+sharkCoord[0] = {x: c.width - 20, y: sharkY1[Math.floor(Math.random() * 2)]};
+sharkCoord[1] = {x: c.width - 20, y: sharkY2[Math.floor(Math.random() * 3)]};
 for (var z = 0; z < 30; z++) {
     plankCoord[z] = {x: c.width + 50, y: yellowPlankY[Math.floor(Math.random() * 7)]};
 }
@@ -73,14 +78,26 @@ function drawPlankton() {
     }
 }
 function drawShark() {
-    ctx.drawImage(shark, currentSharkX, currentSharkY, 100, 85);
+    for (var q = 0; q < 2; q++) {
+        ctx.drawImage(shark, sharkCoord[q].x, sharkCoord[q].y, 100, 85);
+    }
+    
 }
 function moveShark() {
-    currentSharkX -= 3;
-    if (currentSharkX <= 0){
-        currentSharkX = c.width - 20;
-        currentSharkY = sharkY[Math.floor(Math.random() * 6)];
+    for (var q = 0; q < 2; q++) {
+        sharkCoord[q].x -= 3;
+        if (sharkCoord[q].x <= 0){
+            sharkCoord[q].x = c.width - 20;
+            if (q == 0){
+                sharkCoord[q].y = sharkY1[Math.floor(Math.random() * 2)];
+            }
+            else {
+                sharkCoord[q].y = sharkY2[Math.floor(Math.random() * 3)];
+            }
+            
+        }
     }
+    
 }
  
 document.body.onkeyup = function (e) {
@@ -150,31 +167,38 @@ function collisionDetection(){
         i++;
     }
         
-        
-    if (!(currentSharkX > (x + fish.width) || x > (currentSharkX + 20) || currentSharkY > (y + fish.height) || y > (currentSharkY + 50))) {
-        if (energy < 10) {
-            currentSharkX = c.width - 20;  
-            currentSharkY = sharkY[Math.floor(Math.random() * 6)];
-            drawShark();
-            if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
-                lives--;
-                counter = 0;
+    for (var q = 0; q < 2; q++) {
+        if (!(sharkCoord[q].x > (x + fish.width) || x > (sharkCoord[q].x+ 20) || sharkCoord[q].y > (y + fish.height) || y > (sharkCoord[q].y + 50))) {
+            if (energy < 10) {
+                sharkCoord[q].x = c.width - 20; 
+                if (q == 0){
+                    sharkCoord[q].y = sharkY1[Math.floor(Math.random() * 2)];
+                } 
+                else{
+                    sharkCoord[q].y = sharkY2[Math.floor(Math.random() * 3)];
+                }
+                drawShark();
+                if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
+                    lives--;
+                    counter = 0;
+                    energy = 0;
+                    x = 10;
+                    y = 450;
+                }
+                else if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
+                    lives--;
+                    counter = 0;
+                    x = 10;
+                    y = 450;
+                }
+            }
+            else {
                 energy = 0;
-                x = 10;
-                y = 450;
             }
-            else if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_closed.png")) {
-                lives--;
-                counter = 0;
-                x = 10;
-                y = 450;
-            }
-            }
-        else {
-            energy = 0;
+            
         }
-        
     }
+    
     
 }
 function drawPlayer() {
