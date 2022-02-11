@@ -169,7 +169,7 @@ function collisionDetection(){
         
     for (var q = 0; q < 2; q++) {
         if (!(sharkCoord[q].x > (x + fish.width) || x > (sharkCoord[q].x+ 20) || sharkCoord[q].y > (y + fish.height) || y > (sharkCoord[q].y + 50))) {
-            if (energy < 10) {
+            if (energy < 6) {
                 sharkCoord[q].x = c.width - 20; 
                 sharkCoord[q].y = sharkY[Math.floor(Math.random() * 7)];
                 drawShark();
