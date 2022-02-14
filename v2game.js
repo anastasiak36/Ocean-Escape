@@ -1,3 +1,4 @@
+alert("Welcome to Ocean Escape! Your job as the fish is to get to the top of the screen without getting eaten by the shark. You have three lives to do this, as well as energy that you gain by eating the yellow plankton on the screen. To open the fish's mouth click the space bar and to close it do the same. Beware of the plastic bottles floating in the ocean because those are toxic to fish and will take away energy. If you are eaten by the shark and have more than 6 energy, you will just lose all of it, but won't lose a life and won't be reset to the bottom of the screen. When you are ready click okay and good luck!")
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
  
