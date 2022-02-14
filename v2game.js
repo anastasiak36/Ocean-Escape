@@ -188,6 +188,8 @@ function collisionDetection(){
                 }
             }
             else {
+                sharkCoord[q].x = c.width - 20; 
+                sharkCoord[q].y = sharkY[Math.floor(Math.random() * 7)];
                 energy = 0;
             }
             
