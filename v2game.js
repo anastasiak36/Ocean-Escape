@@ -35,10 +35,10 @@ var dir = path.substring(0, path.lastIndexOf('/'));
 sharkCoord[0] = {x: c.width - 20, y: sharkY[Math.floor(Math.random() * 7)]};
 sharkCoord[1] = {x: c.width - 20, y: sharkY[Math.floor(Math.random() * 7)]};
 for (var z = 0; z < 30; z++) {
-    plankCoord[z] = {x: c.width + 50, y: yellowPlankY[Math.floor(Math.random() * 7)]};
+    plankCoord[z] = {x: c.width + 50, y: yellowPlankY[Math.floor(Math.random() * 9)]};
 }
 for (var t = 0; t < 50; t++) {
-    greenPlankCoord[t] = {x: c.width + 50, y: greenPlankY[Math.floor(Math.random() * 7)]};
+    greenPlankCoord[t] = {x: c.width + 50, y: greenPlankY[Math.floor(Math.random() * 9)]};
 }
  
 function createPlankton() {
@@ -54,16 +54,16 @@ function movePlankton(){
     var j = 0;
     while (i < 10) {
         if (plankCoord[i].x <= 10){
-            plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];
-            plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 6)];
+            plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 6)];
+            plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 9)];
         }
         plankCoord[i].x -= 5;
         i++;
     }
     while (j < 15) {
         if (greenPlankCoord[j].x <= 0){
-            greenPlankCoord[j].x = greenPlankX[Math.floor(Math.random() * 7)];
-            greenPlankCoord[j].y = greenPlankY[Math.floor(Math.random() * 4)];
+            greenPlankCoord[j].x = greenPlankX[Math.floor(Math.random() * 4)];
+            greenPlankCoord[j].y = greenPlankY[Math.floor(Math.random() * 9)];
         }
         greenPlankCoord[j].x -= 4;
         j++;
@@ -127,16 +127,16 @@ function collisionDetection(){
         //https://www.oreilly.com/library/view/html5-canvas-2nd/9781449335847/ch04s10.html
         if (!((bottomPlankton < topFish) || (topPlankton > bottomFish) || (rightPlankton < leftFish) || (leftPlankton > rightFish))) {
             if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
-                plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
-                plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 7)];
+                plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 6)];  
+                plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 9)];
                 drawPlankton();
                 energy++;
                 drawEnergy();
                 
             }
             else {
-                plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
-                plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 7)];
+                plankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 6)];  
+                plankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 9)];
                 drawPlankton();
             }
         }
@@ -150,8 +150,8 @@ function collisionDetection(){
         bottomPlankton = greenPlankCoord[i].y + 25;
         if (!((bottomPlankton < topFish) || (topPlankton > bottomFish) || (rightPlankton < leftFish) || (leftPlankton > rightFish))) {
             if (fish.src == ("https://anastasiak36.github.io/Ocean-Escape/images/fish_mouth_open.png")) {
-                greenPlankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
-                greenPlankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 4)];
+                greenPlankCoord[i].x = greenPlankX[Math.floor(Math.random() * 4)];  
+                greenPlankCoord[i].y = greenPlankY[Math.floor(Math.random() * 9)];
                 energy--;
                 if (energy < 0){
                     energy = 0;
@@ -159,8 +159,8 @@ function collisionDetection(){
                 drawEnergy();
             }
             else {
-                greenPlankCoord[i].x = yellowPlankX[Math.floor(Math.random() * 7)];  
-                greenPlankCoord[i].y = yellowPlankY[Math.floor(Math.random() * 4)];
+                greenPlankCoord[i].x = greenPlankX[Math.floor(Math.random() * 4)];  
+                greenPlankCoord[i].y = greenPlankY[Math.floor(Math.random() * 9)];
             }
             drawPlankton();
         }
